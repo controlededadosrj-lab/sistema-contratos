@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Contratos - Coletivo Aprendiz</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(160deg,#e6f0ff,#ffffff); margin:0; padding:0; }
+.container { max-width:800px; margin:auto; padding:20px; border-radius:15px; box-shadow:0 6px 25px rgba(0,0,0,0.15); background:#fff; }
+header { display:flex; align-items:center; padding:10px; background:linear-gradient(135deg,#99ccff,#66b2ff); border-radius:10px; }
+header img { height:50px; margin-right:15px; }
+header h1 { color:#003366; font-size:22px; margin:0; }
+button { padding:12px 25px; border-radius:10px; background-color:#3399ff; color:#fff; border:none; cursor:pointer; }
+button:hover { background-color:#2673cc; }
+label { display:block; margin-top:10px; }
+input, select { width:100%; padding:8px; margin-top:5px; border-radius:6px; border:1px solid #ccc; }
+.checkbox-group { display:flex; flex-wrap:wrap; gap:10px 20px; margin-top:5px; }
+footer { margin-top:20px; font-size:13px; color:#003366; text-align:center; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <img src="https://i.imgur.com/CpkMofS.png" alt="Logo Coletivo Aprendiz">
+    <h1>Sistema de Contratos</h1>
+  </header>
+
+  <!-- MENU -->
+  <div id="menu" style="text-align:center; margin-top:20px;">
+    <p>Selecione a função desejada:</p>
+    <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:10px;">
+      <button onclick="showSection('cadastro')">➕ Cadastrar</button>
+      <button onclick="showSection('editar')">✏️ Editar</button>
+      <button onclick="showSection('consultar')">📊 Consultar / Extrair</button>
+    </div>
+  </div>
+
+  <!-- CADASTRO -->
+  <div id="cadastro" style="display:none; margin-top:20px;">
+    <button onclick="showSection('menu')" style="margin-bottom:10px;">⬅ Voltar</button>
+    <h2 style="color:#004080;">Cadastro de Contrato</h2>
+    <form id="formCadastro">
+      <label>Nome:</label>
+      <input type="text" placeholder="Nome" required>
+
+      <label>CPF:</label>
+      <input type="text" placeholder="00000000000" required>
+
+      <label>Telefone de Contato:</label>
+      <input type="text" placeholder="11999999999">
+      <label><input type="checkbox" id="chkTel"> Não informado</label>
+
+      <label>Data de Nascimento:</label>
+      <input type="text" placeholder="ddmmaaaa">
+
+      <label>E-mail:</label>
+      <input type="email" placeholder="exemplo@email.com">
+      <label><input type="checkbox" id="chkEmail"> Não informado</label>
+
+      <label>Data da Solicitação:</label>
+      <input type="text" placeholder="ddmmaaaa">
+
+      <label>Documentos Pendentes:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Foto 3/4</label>
+        <label><input type="checkbox"> RG</label>
+        <label><input type="checkbox"> CTPS</label>
+        <label><input type="checkbox"> CPF</label>
+        <label><input type="checkbox"> Título de Eleitor</label>
+        <label><input type="checkbox"> Comprovante de Residência</label>
+        <label><input type="checkbox"> Comprovante de Escolaridade</label>
+        <label><input type="checkbox"> Certificado de Reservista</label>
+        <label><input type="checkbox"> ASO</label>
+        <label><input type="checkbox"> Declaração PIS/NIS</label>
+        <label><input type="checkbox"> Nada Consta</label>
+        <label><input type="checkbox"> Certidão Nasc/Casamento</label>
+        <label><input type="checkbox"> Currículo</label>
+        <label><input type="checkbox"> Comp. Vacina Cov-19</label>
+      </div>
+
+      <label>CNPJ:</label>
+      <input type="text" placeholder="00000000000000">
+
+      <label>Tipo de Gestão:</label>
+      <select>
+        <option value="">Selecione...</option>
+        <option value="TOTAL">TOTAL</option>
+        <option value="PARCIAL">PARCIAL</option>
+      </select>
+
+      <label>Unidade:</label>
+      <select>
+        <option value="">Selecione...</option>
+        <option>Centro - RJ</option>
+        <option>Caxias - RJ</option>
+        <option>Barra - RJ</option>
+        <option>São Gonçalo - RJ</option>
+        <option>Teresópolis - RJ</option>
+        <option>EAD</option>
+        <option>Vitória - ES</option>
+        <option>São Paulo - SP</option>
+      </select>
+
+      <button type="submit" style="margin-top:15px;">Salvar Cadastro</button>
+    </form>
+  </div>
+
+  <!-- EDITAR / CONSULTAR (placeholders) -->
+  <div id="editar" style="display:none; margin-top:20px;">
+    <button onclick="showSection('menu')" style="margin-bottom:10px;">⬅ Voltar</button>
+    <h2 style="color:#004080;">Editar Registro</h2>
+    <p>Em breve: busca por ID e edição dos campos.</p>
+  </div>
+
+  <div id="consultar" style="display:none; margin-top:20px;">
+    <button onclick="showSection('menu')" style="margin-bottom:10px;">⬅ Voltar</button>
+    <h2 style="color:#004080;">Consultar / Extrair Dados</h2>
+    <p>Em breve: filtros, visualização e exportação para Excel.</p>
+  </div>
+
+  <footer>© 2025 - Coletivo Aprendiz</footer>
+</div>
+
+<script>
+// Função para mostrar/ocultar seções
+function showSection(id){
+  ['menu','cadastro','editar','consultar'].forEach(el=>document.getElementById(el)?.style.display='none');
+  document.getElementById(id)?.style.display='block';
+}
+
+// Funções de formatação
+function formatarCPF(cpf){ cpf = cpf.replace(/\D/g,''); return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"); }
+function formatarCNPJ(cnpj){ cnpj = cnpj.replace(/\D/g,''); return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"); }
+function formatarTelefone(tel){ tel = tel.replace(/\D/g,''); if(tel.length===11) return tel.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3"); if(tel.length===10) return tel.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3"); return tel; }
+function formatarData(data){ data = data.replace(/\D/g,''); if(data.length===8) return data.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3"); return data; }
+
+// Evento submit
+document.getElementById("formCadastro").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const nome = this.querySelector('input[placeholder="Nome"]').value;
+  const cpf = formatarCPF(this.querySelector('input[placeholder="00000000000"]').value);
+  const telefone = this.querySelector('input[placeholder="11999999999"]').value ? formatarTelefone(this.querySelector('input[placeholder="11999999999"]').value) : "Não informado";
+  const nascimento = formatarData(this.querySelector('input[placeholder="ddmmaaaa"]').value);
+  const email = this.querySelector('input[type="email"]').value || "Não informado";
+  const solicitacao = formatarData(this.querySelectorAll('input[placeholder="ddmmaaaa"]')[1].value);
+  const documentos = Array.from(this.querySelectorAll('.checkbox-group input[type="checkbox"]:checked')).map(cb=>cb.parentElement.textContent.trim());
+  const cnpj = formatarCNPJ(this.querySelector('input[placeholder="00000000000000"]').value);
+  const gestao = this.querySelectorAll('select')[0].value;
+  const unidade = this.querySelectorAll('select')[1].value;
+
+  const url="https://script.google.com/macros/s/AKfycbwC1NFkRk-c24UJjwmXz-uBJ2BSmM-DvS5f_wxaKN8O8g1GWq913A0WdtHkjJoDLfSl/exec";
+
+  fetch(url,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({nome,cpf,telefone,nascimento,email,solicitacao,documentos,cnpj,gestao,unidade})
+  })
+  .then(resp=>resp.json())
+  .then(data=>{
+    if(data.status==="success"){ alert(data.message); this.reset(); } 
+    else{ alert("Erro: "+data.message); }
+  })
+  .catch(err=>alert("Erro de conexão (CORS ou URL incorreto): "+err));
+});
+</script>
